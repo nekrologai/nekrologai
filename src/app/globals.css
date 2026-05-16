@@ -1,0 +1,275 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0a0806;
+  --paper: #f0e6d0;
+  --paper-dark: #d4c9a8;
+  --ink: #1a1208;
+  --gold: #c9a84c;
+  --red: #8b1a1a;
+  --gray: #6b6560;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--paper);
+  font-family: 'Crimson Text', Georgia, serif;
+  min-height: 100vh;
+  cursor: default;
+}
+
+/* Paper texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ==================
+   OBITUARY CARD
+================== */
+.obituary-card {
+  background-color: #f5ead5;
+  color: #1a1208;
+  font-family: 'Crimson Text', Georgia, serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.obituary-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.07'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.obituary-border {
+  border: 2px solid #1a1208;
+  box-shadow: 
+    inset 0 0 0 4px #f5ead5,
+    inset 0 0 0 6px #1a1208,
+    0 4px 20px rgba(0,0,0,0.5);
+}
+
+/* ==================
+   LOADING ANIMATION
+================== */
+@keyframes typewriter-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.6; }
+  94% { opacity: 1; }
+  97% { opacity: 0.8; }
+  98% { opacity: 1; }
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-2%, -3%); }
+  20% { transform: translate(3%, 2%); }
+  30% { transform: translate(-1%, 4%); }
+  40% { transform: translate(4%, -1%); }
+  50% { transform: translate(-3%, 3%); }
+  60% { transform: translate(2%, -4%); }
+  70% { transform: translate(-4%, 1%); }
+  80% { transform: translate(1%, -2%); }
+  90% { transform: translate(3%, 4%); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 168, 76, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(201, 168, 76, 0); }
+}
+
+.animate-flicker { animation: flicker 4s infinite; }
+.animate-fade-in-up { animation: fadeInUp 0.8s ease-out both; }
+.animate-slide-in-left { animation: slideInLeft 0.6s ease-out both; }
+.animate-pulse-gold { animation: pulse-gold 2s infinite; }
+
+.cursor-blink::after {
+  content: '|';
+  animation: typewriter-cursor 0.8s infinite;
+}
+
+/* ==================
+   SCROLLBAR
+================== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0806; }
+::-webkit-scrollbar-thumb { background: #4a4540; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #c9a84c; }
+
+/* ==================
+   FORM ELEMENTS
+================== */
+.obituary-input {
+  background: rgba(240, 230, 208, 0.05);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  color: #f0e6d0;
+  font-family: 'Crimson Text', serif;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  resize: none;
+}
+
+.obituary-input:focus {
+  outline: none;
+  border-color: rgba(201, 168, 76, 0.8);
+  background: rgba(240, 230, 208, 0.08);
+  box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.15);
+}
+
+.obituary-input::placeholder {
+  color: rgba(240, 230, 208, 0.3);
+  font-style: italic;
+}
+
+/* ==================
+   BUTTONS
+================== */
+.btn-obituary {
+  background: #1a1208;
+  border: 2px solid #c9a84c;
+  color: #c9a84c;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-obituary:hover {
+  background: #c9a84c;
+  color: #1a1208;
+  box-shadow: 0 0 20px rgba(201, 168, 76, 0.4);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #8b1a1a, #c9a84c);
+  border: none;
+  color: #f0e6d0;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px rgba(139, 26, 26, 0.4);
+}
+
+/* ==================
+   DIVIDERS
+================== */
+.divider-obituary {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #c9a84c, transparent);
+  margin: 2rem 0;
+}
+
+/* ==================
+   STICKY DISCLAIMER
+================== */
+.disclaimer-bar {
+  background: #1a1208;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.3);
+  font-family: 'Crimson Text', serif;
+  font-size: 0.8rem;
+  color: rgba(240, 230, 208, 0.6);
+}
+
+/* ==================
+   NEWSPAPER COLUMN LAYOUT
+================== */
+.newspaper-columns {
+  column-count: 2;
+  column-gap: 2rem;
+  column-rule: 1px solid rgba(26, 18, 8, 0.3);
+}
+
+@media (max-width: 640px) {
+  .newspaper-columns {
+    column-count: 1;
+  }
+}
+
+/* ==================
+   SECTION HEADERS (newspaper style)
+================== */
+.section-header {
+  text-align: center;
+  position: relative;
+  margin: 2rem 0 1rem;
+}
+
+.section-header::before,
+.section-header::after {
+  content: '— ✝ —';
+  font-family: 'Crimson Text', serif;
+  color: #8b1a1a;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.section-header::before { right: calc(50% + 160px); }
+.section-header::after { left: calc(50% + 160px); }
+
+/* ==================
+   DONATE SLIDER
+================== */
+input[type='range'] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, #8b1a1a, #c9a84c);
+  border-radius: 2px;
+  outline: none;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #c9a84c;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid #1a1208;
+  box-shadow: 0 0 8px rgba(201, 168, 76, 0.5);
+}
